@@ -1,0 +1,10 @@
+# Feature gates — flip to true to expose a module in the UI
+esp_overlay: true
+aimbot: true
+godmode: true
+infinite_stamina: true
+teleport_waypoints: true
+speed_multiplier: true
+inventory_editor: false      # experimental, save-corrupt risk
+skin_unlocker: false
+debug_console: true
