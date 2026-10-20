@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heartopia Trainer — Memory ESP, Wallhack, Aimbot & More</title>
+<style>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --bg-deep: #070912;
+    --bg-navy: #0b1024;
+    --bg-indigo: #151a3a;
+    --bg-charcoal: #11131c;
+    --accent-1: #6d5efc;
+    --accent-2: #22d3ee;
+    --accent-3: #f472b6;
+    --text-main: #eef1ff;
+    --text-dim: #9aa3c7;
+    --glass-bg: rgba(18, 22, 44, 0.55);
+    --glass-border: rgba(140, 150, 255, 0.18);
+    --card-bg: rgba(20, 25, 50, 0.62);
+    --radius: 16px;
+    --max-width: 1120px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: "Segoe UI", "Inter", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    background:
+      radial-gradient(circle at 15% 0%, rgba(109, 94, 252, 0.22), transparent 45%),
+      radial-gradient(circle at 85% 12%, rgba(34, 211, 238, 0.14), transparent 42%),
+      radial-gradient(circle at 50% 100%, rgba(244, 114, 182, 0.10), transparent 55%),
+      linear-gradient(160deg, var(--bg-deep) 0%, var(--bg-navy) 38%, var(--bg-indigo) 68%, var(--bg-charcoal) 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .container {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    background: var(--glass-bg);
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .nav-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 1.12rem;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+
+  .brand-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    box-shadow: 0 0 18px rgba(109, 94, 252, 0.55);
+    font-size: 0.95rem;
+  }
+
+  .brand span.grad {
+    background: linear-gradient(90deg, #c7bcff, #7ef0ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    font-size: 0.92rem;
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+
+  .nav-links a {
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    color: #ffffff;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 11px;
+    padding: 12px 22px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent-1), #9b6bff 55%, var(--accent-2));
+    color: #ffffff;
+    box-shadow: 0 8px 26px rgba(109, 94, 252, 0.42);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 34px rgba(109, 94, 252, 0.6);
+  }
+
+  .btn-ghost {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-main);
+    border-color: rgba(160, 170, 255, 0.28);
+  }
+
+  .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(160, 170, 255, 0.55);
+    transform: translateY(-2px);
+  }
+
+  .btn-nav {
+    padding: 9px 18px;
+    font-size: 0.88rem;
+    border-radius: 10px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 92px 0 70px;
+    text-align: center;
+    position: relative;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #cfc9ff;
+    background: rgba(109, 94, 252, 0.12);
+    border: 1px solid rgba(140, 130, 255, 0.35);
+    box-shadow: 0 0 22px rgba(109, 94, 252, 0.18) inset;
+  }
+
+  .pill .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 10px #4ade80;
+    animation: pulse 1.8s infinite ease-in-out;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.82); }
+  }
+
+  h1 {
+    font-size: clamp(2.3rem, 6vw, 4.1rem);
+    line-height: 1.08;
+    font-weight: 900;
+    letter-spacing: -1.4px;
+    margin: 26px auto 20px;
+    max-width: 880px;
+    background: linear-gradient(100deg, #ffffff 0%, #c9c2ff 38%, #7fe9ff 70%, #f9a8d4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 60px rgba(109, 94, 252, 0.22);
+  }
+
+  .hero-sub {
+    max-width: 660px;
+    margin: 0 auto 36px;
+    color: var(--text-dim);
+    font-size: 1.06rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 48px;
+  }
+
+  .hero-actions .btn {
+    padding: 15px 30px;
+    font-size: 1rem;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .stat {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 13px;
+    padding: 16px 12px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .stat:hover {
+    border-color: rgba(140, 150, 255, 0.45);
+    transform: translateY(-3px);
+  }
+
+  .stat-value {
+    font-size: 1.12rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #d6d1ff, #7fe9ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .stat-label {
+    font-size: 0.76rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 3px;
+  }
+
+  /* ---------- SECTION HEADINGS ---------- */
+  section {
+    padding: 76px 0;
+  }
+
+  .section-head {
+    text-align: center;
+    margin-bottom: 52px;
+  }
+
+  .section-kicker {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin-bottom: 12px;
+  }
+
+  .section-head h2 {
+    font-size: clamp(1.7rem, 3.6vw, 2.5rem);
+    font-weight: 850;
+    letter-spacing: -0.8px;
+  }
+
+  .section-head p {
+    color: var(--text-dim);
+    max-width: 560px;
+    margin: 14px auto 0;
+    font-size: 1rem;
+  }
+
+  /* ---------- FEATURES ---------- */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+
+  .feature-card {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 30px 26px 28px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  }
+
+  .feature-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-3));
+    opacity: 0.9;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(140, 150, 255, 0.5);
+    box-shadow: 0 20px 44px rgba(6, 8, 22, 0.65), 0 0 0 1px rgba(140, 150, 255, 0.14);
+  }
+
+  .feature-icon {
+    font-size: 1.9rem;
+    width: 54px;
+    height: 54px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: linear-gradient(145deg, rgba(109, 94, 252, 0.22), rgba(34, 211, 238, 0.12));
+    border: 1px solid rgba(140, 150, 255, 0.24);
+    margin-bottom: 20px;
+  }
+
+  .feature-card h3 {
+    font-size: 1.08rem;
+    font-weight: 750;
+    margin-bottom: 9px;
+    letter-spacing: -0.2px;
+  }
+
+  .feature-card p {
+    color: var(--text-dim);
+    font-size: 0.93rem;
+    line-height: 1.62;
+  }
+
+  /* ---------- HOW IT WORKS ---------- */
+  .steps {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    padding-left: 12px;
+  }
+
+  .steps::before {
+    content: "";
+    position: absolute;
+    left: 39px;
+    top: 16px;
+    bottom: 16px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent-1), var(--accent-2) 55%, var(--accent-3));
+    border-radius: 2px;
+    opacity: 0.75;
+  }
+
+  .step {
+    position: relative;
+    display: flex;
+    gap: 26px;
+    padding: 0 0 42px 0;
+  }
+
+  .step:last-child {
+    padding-bottom: 0;
+  }
+
+  .step-num {
+    flex: 0 0 auto;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: #fff;
+    background: linear-gradient(145deg, #1a2050, #11142a);
+    border: 2px solid rgba(140, 150, 255, 0.55);
+    box-shadow: 0 0 26px rgba(109, 94, 252, 0.4);
+    z-index: 1;
+  }
+
+  .step-body {
+    padding-top: 4px;
+  }
+
+  .step-body h3 {
+    font-size: 1.08rem;
+    font-weight: 750;
+    margin-bottom: 6px;
+  }
+
+  .step-body p {
+    color: var(--text-dim);
+    font-size: 0.94rem;
+    max-width: 520px;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  details.faq {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    padding: 0 22px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  details.faq[open] {
+    border-color: rgba(140, 150, 255, 0.45);
+    background: rgba(24, 30, 60, 0.72);
+  }
+
+  details.faq summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 20px 0;
+    font-weight: 650;
+    font-size: 1rem;
+    user-select: none;
+  }
+
+  details.faq summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-icon {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    font-size: 1.15rem;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--accent-2);
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.28);
+    transition: transform 0.25s ease, color 0.25s ease, background 0.25s ease;
+  }
+
+  details.faq[open] .faq-icon {
+    transform: rotate(45deg);
+    color: var(--accent-3);
+    background: rgba(244, 114, 182, 0.12);
+    border-color: rgba(244, 114, 182, 0.32);
+  }
+
+  .faq-answer {
+    color: var(--text-dim);
+    font-size: 0.94rem;
+    padding: 0 0 22px;
+    max-width: 640px;
+  }
+
+  /* ---------- CTA BANNER ---------- */
+  .cta-banner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    padding: 68px 40px;
+    text-align: center;
+    background: linear-gradient(150deg, rgba(30, 27, 74, 0.85), rgba(12, 16, 34, 0.92));
+    border: 1px solid rgba(140, 150, 255, 0.3);
+    box-shadow: 0 30px 70px rgba(5, 6, 18, 0.7);
+  }
+
+  .cta-banner::before {
+    content: "";
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 780px;
+    height: 780px;
+    background: radial-gradient(circle, rgba(109, 94, 252, 0.42) 0%, rgba(34, 211, 238, 0.16) 38%, transparent 66%);
+    pointer-events: none;
+  }
+
+  .cta-banner > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-banner h2 {
+    font-size: clamp(1.75rem, 4vw, 2.7rem);
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    background: linear-gradient(95deg, #ffffff, #cfc9ff 45%, #7fe9ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .cta-banner p {
+    color: var(--text-dim);
+    max-width: 560px;
+    margin: 0 auto 34px;
+    font-size: 1rem;
+  }
+
+  .cta-banner .btn {
+    padding: 16px 36px;
+    font-size: 1.02rem;
+  }
+
+  .cta-note {
+    margin-top: 18px;
+    font-size: 0.8rem;
+    color: #7d86ab;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    border-top: 1px solid rgba(140, 150, 255, 0.14);
+    margin-top: 40px;
+    padding: 34px 0 40px;
+    background: rgba(7, 9, 18, 0.55);
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .footer-links a {
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: #ffffff;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .nav-links {
+      display: none;
+    }
+
+    .nav-inner {
+      padding: 12px 18px;
+    }
+
+    .hero {
+      padding: 62px 0 48px;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+      margin-bottom: 38px;
+    }
+
+    .hero-actions .btn {
+      width: 100%;
+    }
+
+    .stats {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    section {
+      padding: 54px 0;
+    }
+
+    .section-head {
+      margin-bottom: 38px;
+    }
+
+    .steps::before {
+      left: 27px;
+    }
+
+    .step {
+      gap: 18px;
+    }
+
+    .step-num {
+      width: 46px;
+      height: 46px;
+      font-size: 1rem;
+    }
+
+    .cta-banner {
+      padding: 48px 22px;
+      border-radius: 18px;
+    }
+
+    .cta-banner .btn {
+      width: 100%;
+    }
+
+    .footer-inner {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark">🎯</span>
+        <span>Heartopia <span class="grad">Trainer</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="btn btn-primary btn-nav" href="https://gitscore.cc" target="_blank" rel="noopener">Download</a>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <main id="top">
+    <section class="hero">
+      <div class="container">
+        <div class="pill"><span class="dot"></span>Heartopia Trainer · Offsets Updated Daily</div>
+        <h1>Dominate Heartopia with a Live-Offset Trainer</h1>
+        <p class="hero-sub">
+          Memory ESP, wallhack, aimbot, teleport and speed hack in one lightweight overlay —
+          with automatic offset updates and an in-game menu that never leaves your screen.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://gitscore.cc" target="_blank" rel="noopener">⬇ Download Heartopia Trainer</a>
+          <a class="btn btn-ghost" href="https://github.com/heartopia-trainer" target="_blank" rel="noopener">★ View on GitHub</a>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-value">184,000+</div>
+            <div class="stat-label">Downloads</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">v2.8.4</div>
+            <div class="stat-label">Latest Version</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">Windows 10 / 11</div>
+            <div class="stat-label">Platform</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">Free &amp; Open Source</div>
+            <div class="stat-label">License</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section id="features">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-kicker">Features</div>
+          <h2>Everything you need, one overlay</h2>
+          <p>Six core modules built for Heartopia — each toggled instantly from the in-game menu with zero restarts.</p>
+        </div>
+        <div class="features-grid">
+
+          <article class="feature-card">
+            <div class="feature-icon">👁️</div>
+            <h3>Memory ESP</h3>
+            <p>Reads entity positions straight from memory to draw player boxes, health bars, and distance labels through any wall.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">🧱</div>
+            <h3>Wallhack</h3>
+            <p>See enemies, loot, and objectives behind geometry with adjustable render distance and color-coded visibility states.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>Aimbot</h3>
+            <p>Smooth or instant target snapping with configurable FOV, bone priority, and humanized smoothing to keep it natural.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">🌀</div>
+            <h3>Teleport</h3>
+            <p>Jump to saved waypoints, waypoints on the map, or any entity position with a single hotkey — no walking required.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Speed Hack</h3>
+            <p>Multiplier-based movement control from 1.2x to 10x with a toggle key, so you move at the pace you choose.</p>
+          </article>
+
+          <article class
