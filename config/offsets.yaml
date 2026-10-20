@@ -1,0 +1,13 @@
+# Pointer offsets for Heartopia 1.5.0 (Steam build 1722)
+build: "1.5.0"
+module: "Heartopia.exe"
+offsets:
+  player_base: "0x02F4A1C0"
+  health: 0x1A8
+  stamina: 0x1B0
+  position_x: 0x2C0
+  position_y: 0x2C4
+  position_z: 0x2C8
+  inventory_root: "0x02F4B8E0"
+  entity_list: "0x02F4C010"
+  speed_stat: 0x3D4
